@@ -1,0 +1,814 @@
+
+/* ==========================================
+   1. ROOT VARIABLES
+========================================== */
+
+:root {
+    --bg: #0d1016;
+    --side: #11151d;
+    --panel: #171c26;
+    --line: #262d3a;
+
+    --text: #eef1f7;
+    --muted: #858d9c;
+
+    --blue: #6575ff;
+    --green: #55d6a2;
+    --red: #ed7777;
+
+    --radius: 20px;
+}
+
+
+/* ==========================================
+   2. RESET
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+
+    font-family: Arial, sans-serif;
+
+    min-height: 100vh;
+}
+
+button,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   3. MAIN CONTAINER
+========================================== */
+
+.container {
+    width: min(1100px, 94%);
+    margin: auto;
+    padding: 25px 0;
+}
+
+
+/* ==========================================
+   4. HEADER
+========================================== */
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.header p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+
+/* ==========================================
+   5. SCRAMBLE
+========================================== */
+
+.scramble-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.section-label {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.scramble {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.8;
+    word-spacing: 5px;
+    overflow-wrap: anywhere;
+}
+
+.scramble-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+
+/* ==========================================
+   6. TIMER
+========================================== */
+
+.timer-area {
+    text-align: center;
+    padding: 20px 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Đồng hồ chính */
+#timer {
+    font-size: 100px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    letter-spacing: -3px;
+    color: #eef1f7;
+    margin: 20px 0;
+    transition: color 0.2s;
+}
+
+/* Đang giữ phím (chờ 0.3s) */
+#timer.holding {
+    color: #f0a500;
+    transition: color 0.1s;
+}
+
+/* Sẵn sàng (đã giữ đủ 0.3s) → xanh lá */
+#timer.ready {
+    color: #55d6a2;
+}
+
+/* Vừa dừng */
+#timer.stopped {
+    color: #eef1f7;
+}
+
+/* DNF — hết inspection */
+#timer.dnf {
+    color: #ed7777;
+}
+
+/* Điện thoại */
+@media (max-width: 600px) {
+    #timer {
+        font-size: 55px;
+        letter-spacing: -2px;
+    }
+}
+
+.hint {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+
+/* ==========================================
+   7. BUTTONS
+========================================== */
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin: 20px 0 28px;
+}
+
+.btn {
+    background: var(--panel);
+    border: 1px solid var(--line);
+
+    color: var(--text);
+
+    padding: 13px 17px;
+
+    border-radius: 13px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.btn:hover {
+    border-color: var(--blue);
+    background: #202737;
+}
+
+.btn.primary {
+    background: var(--blue);
+    border-color: var(--blue);
+
+    font-weight: 600;
+}
+
+.btn.primary:hover {
+    background: #5263ed;
+}
+
+.btn.danger {
+    color: var(--red);
+}
+
+
+/* ==========================================
+   8. SELECT
+========================================== */
+
+.select {
+    background: var(--panel);
+
+    color: var(--text);
+
+    border: 1px solid var(--line);
+
+    border-radius: 13px;
+
+    padding: 13px 15px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.select:focus {
+    border-color: var(--blue);
+}
+
+.select option {
+    background: var(--panel);
+    color: var(--text);
+}
+
+
+/* ==========================================
+   9. STATISTICS GRID
+========================================== */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: var(--panel);
+
+    border: 1px solid var(--line);
+
+    border-radius: var(--radius);
+
+    min-height: 132px;
+
+    padding: 24px 12px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+    align-items: center;
+
+    text-align: center;
+}
+
+.stat-card > span {
+    color: #91a4c3;
+    font-size: 12px;
+}
+
+.stat-card strong {
+    font-size: 25px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-card small {
+    color: #91a4c3;
+    font-size: 12px;
+}
+
+.inspection-card strong {
+    font-size: 25px;
+}
+
+
+/* ==========================================
+   10. FEATURE NAVIGATION
+========================================== */
+
+.feature-navigation {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+
+    margin-bottom: 25px;
+}
+
+.feature-btn {
+    background: var(--panel);
+
+    border: 1px solid var(--line);
+
+    color: var(--text);
+
+    padding: 16px;
+
+    border-radius: 14px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.feature-btn:hover {
+    background: var(--blue);
+    border-color: var(--blue);
+}
+
+
+/* ==========================================
+   11. PANEL
+========================================== */
+
+.panel {
+    background: var(--panel);
+
+    border: 1px solid var(--line);
+
+    border-radius: var(--radius);
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+
+    min-width: 0;
+}
+
+.panel h2 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.panel-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   12. OVERVIEW
+========================================== */
+
+.overview-header,
+.overview-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 14px 5px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.overview-header {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.overview-row span {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.overview-row strong {
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ==========================================
+   13. HISTORY
+========================================== */
+
+.history-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.tab {
+    background: transparent;
+
+    border: 1px solid var(--line);
+
+    color: var(--muted);
+
+    padding: 9px 15px;
+
+    border-radius: 10px;
+}
+
+.tab.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+}
+
+.history-heading,
+.time-row {
+    display: grid;
+
+    grid-template-columns: 0.5fr 1fr 1fr auto;
+
+    gap: 10px;
+
+    align-items: center;
+
+    padding: 13px 8px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.history-heading {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.time-row span {
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+}
+
+.time-row .single {
+    font-weight: 700;
+}
+
+.time-row .penalty {
+    color: var(--red);
+}
+
+.row-actions {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    font-size: 10px;
+    padding: 3px 7px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.action-btn:hover {
+    border-color: var(--blue);
+    color: var(--text);
+}
+
+.penalty-btn.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+}
+
+.delete-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+/* Tab active cho algorithms */
+.feature-tabs button.active-tab {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+}
+
+.empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 35px 10px;
+    line-height: 1.8;
+}
+
+
+/* ==========================================
+   14. CHARTS
+========================================== */
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.charts-grid .panel {
+    min-width: 0;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 150px;
+    margin-top: 15px;
+}
+
+
+/* ==========================================
+   15. FEATURE MODAL
+========================================== */
+
+.feature-view {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 1000;
+}
+
+.feature-view.show {
+    display: flex;
+}
+
+.feature-modal {
+    background: var(--panel);
+
+    border: 1px solid var(--line);
+
+    border-radius: 20px;
+
+    width: 100%;
+    max-width: 700px;
+
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+    padding: 25px;
+}
+
+.feature-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.feature-header h2 {
+    font-size: 20px;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+
+    color: var(--text);
+
+    font-size: 22px;
+
+    padding: 5px 10px;
+}
+
+.feature-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.feature-card {
+    background: #202633;
+
+    border: 1px solid var(--line);
+
+    border-radius: 14px;
+
+    padding: 20px;
+}
+
+.feature-card h3 {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.feature-card p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.feature-card small {
+    color: var(--blue);
+}
+
+.algorithm {
+    background: #11151d;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    margin: 15px 0;
+
+    color: var(--green);
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+.feature-card button,
+.lesson-navigation button {
+    background: var(--blue);
+
+    border: none;
+
+    color: white;
+
+    border-radius: 9px;
+
+    padding: 10px 14px;
+}
+
+.feature-search {
+    width: 100%;
+
+    padding: 13px;
+
+    background: #11151d;
+
+    border: 1px solid var(--line);
+
+    border-radius: 10px;
+
+    color: white;
+
+    outline: none;
+}
+
+.feature-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.feature-tabs button {
+    background: #252d3b;
+
+    border: 1px solid var(--line);
+
+    color: white;
+
+    padding: 9px 15px;
+
+    border-radius: 9px;
+}
+
+.lesson-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.lesson-navigation button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.analysis-content {
+    margin-top: 20px;
+}
+
+
+/* ==========================================
+   16. FOOTER
+========================================== */
+
+footer {
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    padding: 25px 0;
+}
+
+
+/* ==========================================
+   17. RESPONSIVE
+========================================== */
+
+@media (max-width: 750px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #timer {
+        letter-spacing: -3px;
+    }
+
+    .scramble {
+        font-size: 16px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .container {
+        width: 94%;
+        padding-top: 15px;
+    }
+
+    #timer {
+        font-size: 65px;
+        letter-spacing: -3px;
+    }
+
+    .controls {
+        gap: 8px;
+    }
+
+    .btn,
+    .select {
+        padding: 11px 12px;
+        font-size: 12px;
+    }
+
+    .stats-grid {
+        gap: 9px;
+    }
+
+    .stat-card {
+        min-height: 115px;
+        padding: 18px 8px;
+    }
+
+    .stat-card strong {
+        font-size: 21px;
+    }
+
+    .feature-navigation {
+        gap: 7px;
+    }
+
+    .feature-btn {
+        padding: 12px 5px;
+        font-size: 12px;
+    }
+
+    .panel {
+        padding: 15px;
+    }
+
+}
